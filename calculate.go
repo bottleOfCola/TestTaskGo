@@ -12,7 +12,7 @@ import (
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("FFFFFF")
+	fmt.Println("Можете вводить арифметическое выражение")
 	text, _ := reader.ReadString('\n')
 	array := strings.Split(strings.TrimSpace(text), " ")
 
@@ -50,7 +50,6 @@ func main() {
 			num2 = RomeNumberToArabic(array[2])
 
 		} else {
-			fmt.Println("|", array[2], "|")
 			panic("Оба аргумента обязаны быть либо римскими, либо арабскими числами")
 		}
 	}
@@ -94,7 +93,7 @@ func RomeNumberToArabic(number string) int {
 		return arabic[i]
 	}
 
-	if i%2 == 0 && rome[i-2] == string(number[i+1]) {
+	if i%2 == 0 && rome[i-2] == string(number[1]) {
 		return (arabic[i-2] - arabic[i]) + RomeNumberToArabic(number[2:])
 	}
 
@@ -115,8 +114,8 @@ func ArabicNumberToRome(number int) string {
 
 	i := slices.IndexFunc[[]int](arabic, func(i int) bool { return i <= number })
 
-	if arabic[i-1] == number+arabic[i+1] {
-		return rome[i+1] + rome[i-1]
+	if arabic[i-1] == number+arabic[i] {
+		return rome[i] + rome[i-1]
 	}
 
 	return rome[i] + ArabicNumberToRome(number-arabic[i])
